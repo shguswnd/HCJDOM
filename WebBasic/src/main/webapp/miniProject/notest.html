@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <style>
+        .td {
+            width: 50px;
+            height: 50px;
+            /* padding: 10px;
+   margin : 100px; */
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+
+
+    <script>
+        var cntPuzzle = 0;
+        var path = "../images/list/";
+        var images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
+        var randomList = [];
+        var finishTable;
+
+        function random(){
+            for(let i = 0 ; i < 9 ; i++){
+                randomList[i] = parseInt(Math.random()*9);
+                for(let j = 0 ; j < i ; j++){
+                    if(randomList[i] == randomList[j])
+                    i--;
+                }
+            }
+            //  for(let i = 0 ; i < 9 ; i++)
+            //     console.log(randomList[i]);
+            //     //document.write(randomList[i] + "<br>");
+            
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            //    console.log(ev.target.id);
+            // document.write(ev);
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            cntPuzzle++;
+
+            // alert(finishTable);
+            // alert(finishTable.childNodes);
+            var tr = finishTable.childNodes;
+            var td = tr[0].childNodes;
+            var trueImage = td[0].childNodes;
+            var imageTest1 = trueImage.tagName;
+            var test = tr[0].tagName;
+            var trueImage2 = td[0].children;
+            var imageTest2 = trueImage2.tagName;
+            // var trueImage = td[0].children;
+            // console.log(tr[0]);
+            // console.log(tr[0].childNodes);
+            console.log(tr);
+            console.log(tr.children);
+            console.log(tr.tagName);
+            console.log(td);
+            console.log(td.tagName);
+            console.log(trueImage);
+            console.log(test);
+            console.log(trueImage2);
+            console.log(imageTest1);
+            console.log(imageTest2);
+            // console.log(trueImage[0].tagName);
+            // console.log(trueImage.tagName);
+            
+            // console.log(trueImage.children.tagName);
+            
+            // console.log(trueImage.id)
+            // console.log(trueImage.firstChild);
+            // alert(trueImage.currentSrc);
+            // console.log(finishTable.childNodes.childNodes);
+            if(cntPuzzle == 9){
+                alert(cntPuzzle);
+                alert(finishTable.getAttribute("rowSpan"));
+                // finishTable.ariaColSpan
+            }
+
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+        function Load() {
+            random();
+            // exit;
+            let cnt = 1;
+            for (var i = 0; i < 3; i++) {
+                var tr = document.createElement("tr");
+                for (var j = 0; j < 3; j++) {
+                    var td = document.createElement("td");
+                    var img = document.createElement("img");
+                    // img.src = "../images/KakaoTalk_20220726_023511513.jpg";
+                    img.src = path+images[randomList[cnt-1]];
+                    img.draggable = "true";
+                    img.id = cnt++;
+                    img.width = "50";
+                    img.height = "50";
+                    //   img.ondragstart = drag(event);
+                    img.ondragstart = img.addEventListener("dragstart", function (e) {
+                        drag(e);
+                    });
+                    td.appendChild(img);
+                    //   td.img.ondragstart = drag(event);
+                    tr.appendChild(td);
+                    var test = document.getElementById("Table1");
+                    test.appendChild(tr);
+                }
+            }
+
+
+            //drop
+            cnt = 1;
+            for (var i = 0; i < 3; i++) {
+                var tr = document.createElement("tr");
+                tr.id = "select";
+                tr.setAttribute("name", "select");
+                tr.className = "select";
+
+                for (var j = 0; j < 3; j++) {
+                    var td = document.createElement("td");
+                    var img = document.createElement("img");
+                    var div = document.createElement("div");
+
+                    td.id = cnt++;
+                    td.className = "td";
+                    td.ondragover = td.addEventListener("dragover", function (e) {
+                        allowDrop(e);
+                    });
+                    td.ondrop = td.addEventListener("drop", function (e) {
+                        drop(e);
+                    });
+                    tr.appendChild(td);
+                    table2 = document.getElementById("Table2");
+                    // console.log(test);
+                    table2.appendChild(tr);
+                    finishTable = document.getElementById("Table2");
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <table id="Table1"></table>
+        <div>
+            <table id="Table2" name="Table2"></table>
+        </div>
+    </div>
+
+    <button class="button" onclick="Load()" type="button">Click</button>
+
+
+</body>
+
+</html>

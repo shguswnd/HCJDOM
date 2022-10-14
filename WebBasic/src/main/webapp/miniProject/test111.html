@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+
+</head>
+<body>
+    <div id="x"></div>
+    <div></div>
+    <button class="button" onclick="updateArray()" type="button" >Click</button>
+  
+    <table id='testTable'>
+      <thead>
+        <tr>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <img src="../images/KakaoTalk_20220726_023511513.jpg" draggable="true" ondragstart="drag(event)" alt="boy" class="w3-image" id="drag1" width="10" height="10" >    </td>
+          <td>김ㅇㅇ</td>
+          <td>40</td>
+          <td>경기도</td>
+          <td>75</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>이ㅇㅇ</td>
+          <td>24</td>
+          <td>충청남도</td>
+          <td>85</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>박ㅇㅇ</td>
+          <td>26</td>
+          <td>전라북도</td>
+          <td>90</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script>
+  const $table = document.getElementById('testTable'); // table 엘리먼트 취득
+  
+  console.log($table.rows.length);  // 3, 행 갯수 출력
+  </script>
+</body>
+</html>

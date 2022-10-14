@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script>
+		window.onload=function(){
+			let btnobj = document.getElementById("btngetdata");
+			//동적으로 이벤트를 처리
+			//나쁜방법 >> <input type="button" onclick="" ..
+			btnobj.onclick = function(){ // 객체.이벤트명 = 익명함수
+				let txtmsg = document.getElementById("txtmessage");
+				let str="";
+				str+="ID : " + txtmsg.getAttribute("id"); //txtmessage
+				str+= "value : " + txtmsg.getAttribute("value"); //hello
+				console.log(str);
+			}
+			//input type=text id = txtbox value=홍길동 태그 동적으로 생성
+			//body의 자식요소로 input 태그 추가하기.
+			document.getElementById("btncreate").onclick=function(){
+				let inputobj = document.createElement("input");
+				inputobj.setAttribute("type","text");
+				inputobj.setAttribute("id","txtbox");
+				inputobj.setAttribute("value","홍길동");								
+				document.body.appendChild(inputobj);
+
+			}
+
+		}
+	</script>
+<body>
+	<input type="text" id="txtmessage" value="hello">
+	<input type="button" id="btngetdata" value="hello">
+	<hr>
+	<input type="button" id="btncreate" value="동적생성">
+</body>
+</html>
+
